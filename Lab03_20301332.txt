@@ -1,0 +1,175 @@
+#LAB ASSIGNMENT 03
+# MD. MUSFIQUR RAHMAN SHOVON
+# ID - 20301332
+# SECTION - 07
+
+# Task 01
+class Node:
+    # part (i)
+    def __init__(self,value):
+        self.previous = None
+        self.value = value
+        self.next = None
+
+    def printNode(self):
+        print(self.value,end=" ")
+
+# part (ii)
+class DoublyList:
+    # Task 02 part 1(a)
+    def __init__(self,double_list):
+        self.head = None
+        tail = None
+        self.size = 0
+
+        for element in double_list:
+            node = Node(element)
+            if self.head is None:
+                self.head = node
+                tail = node
+                self.size += 1
+            else:
+                temp = tail
+                tail.next = node
+                tail = node
+                tail.previous = temp
+                self.size += 1
+        self.head.previous = tail
+        node.next = self.head
+
+    # Task 02 part 2
+    def showList(self):
+        if self.head == None:
+            print("Empty list.")
+        else:
+            node = self.head.next
+            self.head.printNode()
+            while node != self.head:
+                node.printNode()
+                node = node.next
+            print()
+
+    # Task 02 part 3
+    def insert_element(self,new_element):
+        node = self.head
+        new_node = Node(new_element)
+        while node is not None:
+            if node.value == new_element:
+                print("New element already exists in the list.")
+                return
+            if node.next is self.head:
+                temp = node
+                node.next = new_node
+                new_node.previous = temp
+                new_node.next = self.head
+                self.head.previous = new_node
+                self.size += 1
+                return
+            node = node.next
+
+    # Task 02 part 4
+    def insert(self, new_element, index):
+        new_node = Node(new_element)
+        if (index < 0 or index > self.size):
+            print("Invalid Index")
+        elif (index == 0):
+            if (self.head.value == new_element):
+                print("The key already exists")
+            else:
+                temp = self.head
+                new_node.next = self.head
+                self.head = new_node
+                temp.previous.next = new_node
+                temp.previous = new_node
+                self.size += 1
+        elif (index == self.size):
+            new_node = Node(new_element)
+            node = self.head
+            while node is not None:
+                if node.next is self.head:
+                    temp = node
+                    node.next = new_node
+                    new_node.previous = temp
+                    new_node.next = self.head
+                    self.head.previous = new_node
+                    self.size += 1
+                    return
+                node = node.next
+        else:
+            node = self.head.next
+            new_node = Node(new_element)
+            count = 1
+            while node is not self.head:
+                if count == index:
+                    if (node.value == new_node.value):
+                        print("The key already exists")
+                    else:
+                        new_node.previous = node.previous
+                        new_node.next = node
+                        node.previous.next = new_node
+                        node.previous = new_node
+                        self.size += 1
+                        return
+                count = count + 1
+                node = node.next
+
+    # Task 02 part 5
+    def remove_index(self,index):
+        if (index>=0 and index<self.size):
+            if index == 0:
+                temp = self.head
+                while temp.next != self.head:
+                    temp = temp.next
+                temp.next = self.head.next
+                self.head = self.head.next
+                self.size -= 1
+            else:
+                count = 1
+                node = self.head.next
+                previous = self.head
+                while node != self.head:
+                    if count is index:
+                        temp = node.next
+                        node = node.previous
+                        node.next = temp
+                        self.size -= 1
+                        return
+                    node = node.next
+                    count += 1
+        else:
+            print("Invalid Index")
+
+    # Task 02 part 6
+    def remove(self,deletekey):
+        if self.head.value == deletekey:
+            temp = self.head
+            while temp.next != self.head:
+                temp = temp.next
+            temp.next = self.head.next
+            self.head = self.head.next
+            self.size -= 1
+        else:
+            node = self.head.next
+            previous = self.head
+            while node != self.head:
+                if node.value is deletekey:
+                    temp = node.next
+                    node = node.previous
+                    node.next = temp
+                    self.size -= 1
+                node = node.next
+
+# Tester code
+user = [10,20,30,40,50]
+user_circular = DoublyList(user)
+user_circular.showList()
+user_circular.insert_element(40)
+user_circular.insert_element(80)
+user_circular.showList()
+user_circular.insert(30,2)
+user_circular.showList()
+user_circular.insert(60,2)
+user_circular.showList()
+user_circular.remove_index(2)
+user_circular.remove(80)
+user_circular.showList()

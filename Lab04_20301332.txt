@@ -1,0 +1,115 @@
+"""
+Name:    MD. MUSFIQUR RAHMAN SHOVON
+ID:      20301332
+SECTION: 07
+
+"""
+
+# Task 01
+class Stack:
+    stack = []
+    pointer = -1
+
+    def push(self,element):
+        self.stack.append(element)
+        self.pointer += 1
+
+    def peek(self):
+        return self.stack[self.pointer]
+
+    def pop(self):
+        value = self.stack[self.pointer]
+        self.stack = self.stack[:-1]
+        self.pointer -= 1
+
+    def Parenthesis_Checker(self,user):
+        c = 1
+        for element in user:
+            if element == "(" or element == "{" or element == "[":
+                self.push(element)
+            elif element == ")" or element == "}" or element == "]":
+                if len(self.stack) == 0:
+                    print("This expression is NOT correct.")
+                    print(f"Error at character #{c}. \"{element}\" - not opened.")
+                    return
+                elif (self.peek() == "(" and element == ")"):
+                    self.pop()
+                    c += 1
+                elif (self.peek() == "{" and element == "}"):
+                    self.pop()
+                    c += 1
+                elif (self.peek() == "[" and element == "]"):
+                    self.pop()
+                    c += 1
+                else:
+                    break
+            c += 1
+        if len(self.stack) == 0:
+            print("This expression is correct.")
+        else:
+            print("This expression is NOT correct.")
+            print(f"Error at character #{user.index(self.peek())+1}. \"{self.peek()}\" - not closed.")
+
+#Tester code
+user_arr = Stack()
+user_array = input()
+user_arr.Parenthesis_Checker(user_array)
+
+# Task 02
+class Node:
+    def __init__(self,value):
+        self.value = value
+        self.next = None
+
+class Stack_Linkedlist:
+    head = None
+    length = 0
+    def push(self,key):
+        node = Node(key)
+        if self.head is None:
+            self.head = node
+            self.length += 1
+        else:
+            node.next = self.head
+            self.head = node
+            self.length += 1
+
+    def peek(self):
+        return self.head.value
+
+    def pop(self):
+        self.head = self.head.next
+        self.length -= 1
+
+    def Parenthesis_Checker(self,user):
+        c = 1
+        for element in user:
+            if element == "(" or element == "{" or element == "[":
+                self.push(element)
+            elif element == ")" or element == "}" or element == "]":
+                if self.length == 0:
+                    print("This expression is NOT correct.")
+                    print(f"Error at character #{c}. \"{element}\" - not opened.")
+                    return
+                elif (self.peek() == "(" and element == ")"):
+                    self.pop()
+                    c += 1
+                elif (self.peek() == "{" and element == "}"):
+                    self.pop()
+                    c += 1
+                elif (self.peek() == "[" and element == "]"):
+                    self.pop()
+                    c += 1
+                else:
+                    break
+            c += 1
+        if self.length == 0:
+            print("This expression is correct.")
+        else:
+            print("This expression is NOT correct.")
+            print(f"Error at character #{user.index(self.peek())+1}. \"{self.peek()}\" - not closed.")
+
+#Tester code
+user_link = Stack_Linkedlist()
+user_linklist = input()
+user_link.Parenthesis_Checker(user_linklist)

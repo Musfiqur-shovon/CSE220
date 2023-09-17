@@ -1,0 +1,243 @@
+# Task 01 part 01
+class Node:
+    def __init__(self,value,next):
+        self.value = value
+        self.next = next
+
+    def printNode(self):
+        print(self.value,end=" ")
+
+# Task 01 part 02
+class MyList:
+    # Task_2 - part_1
+    def __init__(self,linklist):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+        for element in linklist:
+            node = Node(element,None)
+            if self.head == None:
+                self.head = node
+                self.tail = node
+                self.size += 1
+            else:
+                self.tail.next = node
+                self.tail = node
+                self.size += 1
+
+    # Task_2 - part_2
+    def showList(self):
+        if self.head == None:
+            print("Empty list.")
+        else:
+            node = self.head
+            while node != None:
+                node.printNode()
+                node = node.next
+
+    # Task_2 - part_3
+    def isEmpty(self):
+        node = self.head
+        if node == None:
+            return True
+        else:
+            return False
+
+    # Task_2 - part_4
+    def clear(self):
+        self.head = None
+
+    # Task_2 - part_5
+    def insert_element(self,new_element):
+        node = self.head
+        new_node = Node(new_element,None)
+        while node is not None:
+            if node.value == new_element:
+                print("New element already exists in the list.")
+                return
+            if node.next is None:
+                temp = node.next
+                node.next = new_node
+                new_node.next = temp
+                self.size += 1
+                return
+            node = node.next
+
+    # Task_2 - part_6
+    def insert(self,new_element,index):
+        new_node = Node(new_element, None)
+        if (index < 0 or index > self.size):
+            print("Invalid Index")
+        elif (index == 0):
+            new_node.next = self.head
+            self.head = new_node
+            self.size += 1
+        else:
+            count = 0
+            node = self.head
+            while node != None:
+                if (count == (index - 1)):
+                    temp = node.next
+                    node.next = new_node
+                    new_node.next = temp
+                    self.size += 1
+                    return
+                node = node.next
+                count += 1
+
+    # Task_2 - part_7
+    def remove(self,deletekey):
+        node = self.head
+        previous = None
+        while node != None:
+            if node.value == deletekey:
+                if previous == None:
+                    self.head = node.next
+                    previous = None
+                    node = node.next
+                else:
+                    temp = node.next
+                    node = previous
+                    node.next = temp
+            else:
+                previous = node
+                node = node.next
+
+
+
+    # ________________ answer no. 03___________
+    # part 01
+    def even_number(self):
+        node = self.head
+        while node != None:
+            if (node.value % 2 == 0):
+                node.printNode()
+            node = node.next
+
+    # part 02
+    def element_checker(self,element):
+        node = self.head
+        while node != None:
+            if (node.value == element):
+                return True
+            node = node.next
+        return False
+
+    # part 03
+    def reverse(self):
+        previous = None
+        node = self.head
+        while node != None:
+            temp = node.next
+            node.next = previous
+            previous = node
+            node = temp
+            self.head = previous
+            
+    # part 04
+    def sort(self):
+        node = self.head
+        node_next = self.head.next
+        while node != None:
+            node_next = node.next
+            while node_next != None:
+                if node.value > node_next.value:
+                    temp = node_next.value
+                    node_next.value = node.value
+                    node.value = temp
+                node_next = node_next.next
+            node = node.next
+
+    # part 05
+    def sum(self):
+        sum = 0
+        sum_node = self.head
+        while sum_node != None:
+            sum += sum_node.value
+            sum_node = sum_node.next
+        return sum
+
+    # part 06
+    def rotate(self,move,index):
+        if (move == "left"):
+            first_node = self.head
+            last_node = self.head
+            previous = None
+            count = 0
+            while (count < index and first_node != None):
+                previous = first_node
+                first_node = first_node.next
+                last_node = last_node.next
+                count = count + 1
+            first_node = previous
+            while last_node != None:
+                previous = last_node
+                last_node = last_node.next
+            last_node = previous
+
+            last_node.next = self.head
+            self.head = first_node.next
+            first_node.next = None
+        if (move == "right"):
+            first_node = self.head
+            last_node = self.head
+            previous = None
+            index = self.size - index
+            count = 0
+            while (count < index and first_node != None):
+                previous = first_node
+                first_node = first_node.next
+                last_node = last_node.next
+                count = count + 1
+            first_node = previous
+            while last_node != None:
+                previous = last_node
+                last_node = last_node.next
+            last_node = previous
+            last_node.next = self.head
+            self.head = first_node.next
+            first_node.next = None
+
+
+# TESTER CODE
+
+# Test for task 02
+list = [10,20,30,40,50]
+linked_list = MyList(list)
+linked_list.showList()
+print()
+print(linked_list.isEmpty())
+linked_list.clear()
+linked_list.showList()
+list = [10,20,30,40,50]
+linked_list = MyList(list)
+linked_list.insert_element(10)
+linked_list.insert_element(15)
+linked_list.showList()
+print()
+linked_list.insert(18,2)
+linked_list.showList()
+print()
+print(linked_list.remove(30))
+linked_list.showList()
+print()
+# Check for task 3
+print("TASK 03 OUTPUT")
+check_list = [1,2,5,3,8]
+check = MyList(check_list)
+check.even_number()
+print()
+print(check.element_checker(3))
+check.reverse()
+check.showList()
+print()
+check.sort()
+check.showList()
+print()
+print(check.sum())
+check_list = [3,2,5,1,8]
+check = MyList(check_list)
+check.rotate("left",2)
+check.showList()
+

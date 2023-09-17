@@ -1,0 +1,68 @@
+# Name:     MD. MUSFIQUR RAHMAN SHOVON
+# ID:       20301332
+# SECTION:  07
+
+# Task No. 01
+class KeyIndex:
+  def __init__(self,array):
+    self.list = array
+    self.max = max(array)
+    self.min = min(array)
+    self.new_list = []
+    if self.min >= 0:
+      self.new_list = [0]*(self.max+1)
+      for i in self.list:
+        self.new_list[i] += 1
+    else:
+      self.min = self.min * -1
+      for i in range(len(self.list)):
+        self.list[i] = self.list[i] + self.min
+      self.max = max(self.list)
+      self.new_list = [0] * (self.max + 1)
+      for i in self.list:
+        self.new_list[i] += 1
+    print(self.min)
+    print(self.new_list)
+
+
+  def search(self,value):
+    if self.min > 0:
+      value += self.min
+    if self.new_list[value] != value:
+      print(True)
+      return
+    else:
+      print(False)
+      return
+
+user = [1,1,2,5,7,8,-4]
+a = KeyIndex(user)
+a.search(6)
+
+
+# Task No. 02
+arr = [0]*9
+def Hashtable(array):
+    vowel = ['a','e','i','o','u','A','E','I','O','U']
+    number= ['0','1','2','3','4','5','6','7','8','9']
+    digit = 0
+    consonant = 0
+    for i in array:
+        for j in i:
+            if j in number:
+                digit += int(j)
+            elif j not in vowel:
+                consonant += 1
+        index = ((consonant*24)+digit)%9
+        print(index)
+        if arr[index] == 0:
+            arr[index] = i
+        else:
+            index = (index+1)%9
+            arr[index] = i
+        consonant = 0
+        digit = 0
+    print(arr)
+
+user = ["ST1E89B8A32"]
+Hashtable(user)

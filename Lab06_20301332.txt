@@ -1,0 +1,202 @@
+# Name:     MD. MUSFIQUR RAHMAN SHOVON
+# ID:       20301332
+# SECTION:  07
+
+# ----------------------------------------X---------------------------------
+
+# Task no. 01
+def selection_sort(array,i=0):
+    if i == len(array):
+        return
+    else:
+        max = array[i]
+        max_index = i
+        for count in range(i+1,len(array)):
+            if array[count] < max:
+                max = array[count]
+                max_index = count
+        # swap the max value
+        temp = array[max_index]
+        array[max_index] = array[i]
+        array[i] = temp
+        selection_sort(array,i+1)
+
+list = [2,10,4,3,12,1,5,6]
+selection_sort(list)
+print(list)
+
+# Task no. 02
+def insertation_sort(array,i=0):
+    if i < len(array):
+        for j in range(i-1,-1,-1):
+            if (array[j]>array[j+1]):
+                temp = array[j]
+                array[j] = array[j+1]
+                array[j+1] = temp
+        insertation_sort(array,i+1)
+
+list = [2,10,4,3,12,1,5,6]
+insertation_sort(list)
+print(list)
+
+# Task no. 03
+class Node:
+    def __init__(self,value):
+        self.value = value
+        self.next = None
+
+class MyList:
+    def __init__(self,linklist):
+        self.head = None
+        tail = None
+        for element in linklist:
+            node = Node(element)
+            if self.head == None:
+                self.head = node
+                tail = node
+            else:
+                tail.next = node
+                tail = node
+
+    def bubble_sort(self):
+        node = self.head
+        while node != None:
+            next_node = node.next
+            while next_node != None:
+                if node.value > next_node.value:
+                    temp = node.value
+                    node.value = next_node.value
+                    next_node.value = temp
+                next_node = next_node.next
+            node = node.next
+
+    def showList(self):
+        node = self.head
+        while node != None:
+            print(node.value)
+            node = node.next
+
+list = [40,30,10,20,50]
+a = MyList(list)
+a.bubble_sort()
+a.showList()
+
+# Task no. 04
+class Node:
+    def __init__(self,value):
+        self.value = value
+        self.next = None
+
+class MyList:
+    def __init__(self,linklist):
+        self.head = None
+        tail = None
+        for element in linklist:
+            node = Node(element)
+            if self.head == None:
+                self.head = node
+                tail = node
+            else:
+                tail.next = node
+                tail = node
+
+    def selection_sort(self):
+        head = self.head
+        while head is not None:
+            node = head.next
+            max = head
+            while node is not None:
+                if max.value > node.value:
+                    max = node
+                node = node.next
+            temp = max.value
+            max.value= head.value
+            head.value = temp
+            head = head.next
+
+    def showList(self):
+        node = self.head
+        while node != None:
+            print(node.value)
+            node = node.next
+
+list = [40,30,60,10,20,50]
+a = MyList(list)
+a.selection_sort()
+a.showList()
+
+# Task no. 05
+class Node:
+    def __init__(self,value):
+        self.prev = None
+        self.value = value
+        self.next = None
+
+class Double_linked_list:
+    def __init__(self,array):
+        self.head = None
+        tail = None
+        for i in array:
+            node = Node(i)
+            if self.head == None:
+                self.head = node
+                tail = node
+            else:
+                temp = tail
+                tail.next = node
+                tail = node
+                tail.previous = temp
+
+    def insertion_sort(self):
+        node = self.head
+        while node != None:
+            node_next = node.next
+            while node_next != None:
+                if node.value > node_next.value:
+                    temp = node.value
+                    node.value = node_next.value
+                    node_next.value = temp
+                else:
+                    break
+                node_next = node_next.next
+            node = node.next
+
+    def showList(self):
+        node = self.head
+        while node != None:
+            print(node.value)
+            node = node.next
+
+list = [40,30,10,20,50]
+a = Double_linked_list(list)
+a.insertion_sort()
+a.showList()
+
+# Task no. 06
+def binary_search(array,value,lower,upper):
+    if lower <= upper:
+        mid = (lower + upper) // 2
+        if value == array[mid]:
+            print(f"Found the Value at index {mid}")
+            return
+        elif value > array[mid]:
+            return binary_search(array,value,mid+1,upper)
+        else:
+            return binary_search(array,value,lower,mid-1)
+    else:
+        print("Not Found Value.")
+
+list = [10,20,30,40,50,60,70,80,90,100]
+a = len(list)
+binary_search(list,10,0,len(list)-1)
+
+# Task no. 07
+def fibonacci_series(n):
+   if n <= 1:
+       return 0
+   elif n == 2:
+       return 1
+   else:
+       return(fibonacci_series(n-1) + fibonacci_series(n-2))
+
+print(fibonacci_series(int(input())))
